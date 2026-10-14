@@ -1,0 +1,35 @@
+
+name: Build EffectCraft Web
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-bindgen
+        run: cargo install wasm-bindgen-cli --version 0.2.129 --locked
+
+      - name: Build original EffectCraft Web
+        run: cargo xtask web
+
+      - name: Check output
+        run: ls -lah target/web/dist
+
+      - name: Upload website
+        uses: actions/upload-artifact@v4
+        with:
+          name: EffectCraft-Netlify-Deploy
+          path: target/web/dist/
+          if-no-files-found: error
