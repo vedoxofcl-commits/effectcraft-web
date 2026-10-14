@@ -1,0 +1,30 @@
+
+name: Build PrimeEffect Windows EXE
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build PrimeEffect
+        run: cargo build --release -p effectcraft
+
+      - name: Rename EXE to PrimeEffect
+        run: Copy-Item target/release/effectcraft.exe target/release/PrimeEffect.exe
+
+      - name: Upload PrimeEffect EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: PrimeEffect-Windows
+          path: target/release/PrimeEffect.exe
+          if-no-files-found: error
