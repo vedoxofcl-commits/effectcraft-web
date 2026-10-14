@@ -13,11 +13,11 @@ fn main() {
     }
     let mut res = winresource::WindowsResource::new();
     res.set_icon("../../assets/app-icon/effectcraft.ico")
-        .set("ProductName", "EffectCraft")
-        .set("FileDescription", "EffectCraft motion graphics and visual effects")
+        .set("ProductName", "PrimeEffect")
+        .set("FileDescription", "PrimeEffect motion graphics and visual effects")
         .set("LegalCopyright", "Copyright (c) 2026 The EffectCraft contributors. MIT OR Apache-2.0.")
-        .set("OriginalFilename", "effectcraft.exe")
-        .set("InternalName", "effectcraft");
+        .set("OriginalFilename", "PrimeEffect.exe")
+        .set("InternalName", "PrimeEffect");
     if let Err(e) = res.compile() {
         if std::env::var_os("EFFECTCRAFT_REQUIRE_WINRES").is_some() {
             panic!("embedding Windows resources failed: {e}");
