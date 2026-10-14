@@ -22,7 +22,7 @@ jobs:
         run: cargo install wasm-bindgen-cli --version 0.2.129 --locked
 
       - name: Build original EffectCraft Web
-        run: cargo xtask web
+        run: cargo run -p xtask -- web
 
       - name: Check output
         run: ls -lah target/web/dist
